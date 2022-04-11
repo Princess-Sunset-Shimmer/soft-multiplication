@@ -1,4 +1,4 @@
-
+// this function multiply 2 integer numbers; return the product of signed extended low 32-bit word
     long mulw(
     register long a1,                       // multiplicand
     register long a2                        // multiplier
