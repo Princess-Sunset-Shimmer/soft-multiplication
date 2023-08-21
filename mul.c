@@ -8,14 +8,15 @@ loop:
     pattern = multiplier & 3;
     t2 = pattern < 3;
     t3 = 0 < pattern;
-    if(t2 != t3)goto done_0;
+    if(t2 == t3){
         pattern &= 1;
-    if(pattern == 0)goto done_1;
-        product += multiplicand;                           // add multiplicand if pattern is 01
-        goto done_0;
-done_1:
-    product -= multiplicand;                           // sub multiplicand if pattern is 10
-done_0:
+        if(pattern != 0)goto {
+            product += multiplicand;                           // add multiplicand if pattern is 01
+            goto done_0;
+        }
+        product -= multiplicand;   
+        done_0:                                                // sub multiplicand if pattern is 10
+    }
     multiplier >>= 1;
     product >>= 1;
     counter -= 1;
