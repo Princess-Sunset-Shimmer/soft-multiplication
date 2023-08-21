@@ -9,10 +9,10 @@ loop:
     t2 = t1 < 3;
     t3 = 0 < t1;
     if(t2 != t3)goto done_0;
-    t1 = t1 & 1;
+        t1 = t1 & 1;
     if(t1 == 0)goto done_1;
-    product += multiplicand;                           // add multiplicand if pattern is 01
-    goto done_0;
+        product += multiplicand;                           // add multiplicand if pattern is 01
+        goto done_0;
 done_1:
     product -= multiplicand;                           // sub multiplicand if pattern is 10
 done_0:
