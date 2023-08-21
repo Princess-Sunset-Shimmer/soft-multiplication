@@ -3,22 +3,22 @@ long multiply_int32(register long multiplicand, register long multiplier ) {
     register long t1, t2, t3, counter, product;
     counter = 0x20;                              /* t4 is counter */
     multiplicand <<= 0x20;
-    multiplier <<= 0x1;
+    multiplier <<= 1;
 loop:
-    t1 = multiplier & 0x3;                          // t1 saved pattern
-    t2 = t1 < 0x3;
+    t1 = multiplier & 3;                          // t1 saved pattern
+    t2 = t1 < 3;
     t3 = 0 < t1;
     if(t2 != t3)goto done_0;
-    t1 = t1 & 0x1;
+    t1 = t1 & 1;
     if(t1 == 0)goto done_1;
     product += multiplicand;                           // add multiplicand if pattern is 01
     goto done_0;
 done_1:
     product -= multiplicand;                           // sub multiplicand if pattern is 10
 done_0:
-    multiplier >>= 0x1;
-    product >>= 0x1;
-    counter += (char signed)0xff;
+    multiplier >>= 1;
+    product >>= 1;
+    counter -= (char 1;
     if(counter != 0)goto loop;
     return (int)product;
 }
