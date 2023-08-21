@@ -18,7 +18,7 @@ done_1:
 done_0:
     multiplier >>= 1;
     product >>= 1;
-    counter -= (char 1;
+    counter -= 1;
     if(counter != 0)goto loop;
     return (int)product;
 }
