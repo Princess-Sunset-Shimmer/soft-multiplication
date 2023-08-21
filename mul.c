@@ -1,5 +1,5 @@
 // this function multiply 2 integer numbers; return the product of signed extended low 32-bit word
-long multiply_int32(register long multiplicand, register long multiplier ) {
+int multiply_int32(register long multiplicand, register long multiplier ) {
     register long t1, t2, t3, counter, product;
     counter = 0x20;                              /* t4 is counter */
     multiplicand <<= 0x20;
@@ -20,5 +20,5 @@ done_0:
     product >>= 1;
     counter -= 1;
     if(counter != 0)goto loop;
-    return (int)product;
+    return product;
 }
