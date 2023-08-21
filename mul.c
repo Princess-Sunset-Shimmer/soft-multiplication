@@ -4,22 +4,22 @@ int multiply_int32(register long multiplicand, register long multiplier) {
     counter = 0x20;
     multiplicand <<= 0x20;
     multiplier <<= 1;
-loop:
-    pattern = multiplier & 3;
-    t2 = pattern < 3;
-    t3 = 0 < pattern;
-    if (t2 == t3) {
-        pattern &= 1;
-        if (pattern != 0) {
-            product += multiplicand;                           // add multiplicand if pattern is 01
-            goto done_0;
+    do {
+        pattern = multiplier & 3;
+        t2 = pattern < 3;
+        t3 = 0 < pattern;
+        if (t2 == t3) {
+            pattern &= 1;
+            if (pattern != 0) {
+                product += multiplicand;                           // add multiplicand if pattern is 01
+                goto done_0;
+            }
+            product -= multiplicand;   
+            done_0:                                                // sub multiplicand if pattern is 10
         }
-        product -= multiplicand;   
-        done_0:                                                // sub multiplicand if pattern is 10
-    }
-    multiplier >>= 1;
-    product >>= 1;
-    counter -= 1;
-    if(counter != 0)goto loop;
+        multiplier >>= 1;
+        product >>= 1;
+        counter -= 1;
+        } while (counter != 0);
     return product;
 }
