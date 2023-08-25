@@ -3,7 +3,7 @@ this is the simple program made in C for understanding how does multiplication w
 ```c
 ```
 and this is a working multiply half in x86 assembly
-```s
+```asm
 multiply.half:  /* multiplicand, multiplier */
         cmp     rax, 0
         jz      multiply.half.done
