@@ -78,3 +78,33 @@ multiply.unsign_sign.zero:
 multiply.unsign_sign.done:
         jmp     r11                     /* return */
 ```
+base on multiply unsign sign, we can do multiply both sign
+```asm
+multiply.sign:  /* sign_multiplicand, sign_multiplier */
+        lea     rsi, multiply.sign.both_sign[rip]
+        lea     rcx, multiply.unsign_sign[rip]
+        mov     -8[rsp], rcx            /* write stack(table.jump_address.0), jump_address.unsign_sign */
+        mov     -0x10[rsp], rsi         /* write stack(table.jump_address.1), jump_address.sign_sign */
+        mov     r10, rsp                /* cast pointer.jump_address, stack_pointer */
+        mov     rsi, rax                /* cast sign_checker, sign_multiplicand */
+        sar     rsi, 0x3F               /* shift sign_checker, 0x3F --arithmatically */
+        shl     rsi, 3                  /* shift jump_offset, 3 --left */
+        add     r10, rsi                /* ahead pointer.jump_address, jump_offset */
+        mov     r10, -8[r10]            /* fetch jump_address, pointer.jump_address(-8) */
+        jmp     r10                     /* go jump_address */
+multiply.sign.both_sign:
+        mov     -8[rsp], r11            /* write stack(BACKUP), return_address */
+        add     rsp, -8                 /* ahead stack_pointer, -8 */
+        lea     r11, multiply.sign.return_point.0[rip]
+        jmp     multiply.unsign_sign    /* go multiply.unsign_sign */
+multiply.sign.return_point.0:
+        mov     r9, rdi                 /* cast next_sign_high, sign_multiplier */
+multiply.sign.repeat_high:
+        add     rdx, r9                 /* ahead sign_high, next_sigh_high */
+        shl     r9, 1                   /* shift next_sign_high, 1 --left */
+        jnz     multiply.sign.repeat_high
+        mov     r11, 0[rsp]             /* read return_address, stack(BACKUP) */
+        add     rsp, 8                  /* ahead stack_pointer, 8 */
+        jmp     r11                     /* return */
+```
+
